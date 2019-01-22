@@ -10,3 +10,7 @@ def index(request):
     #we make use of the shortcut function to make our lives easier
     #note that the first parameter is the template we wish to use
     return render(request, 'rango/index.html', context=context_dict)
+
+def about(request):
+	context_dict = {'boldmessage': "This tutorial was created by Maxine"}
+	return render(request, 'rango/about.html', context=context_dict)
