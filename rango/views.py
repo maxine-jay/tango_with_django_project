@@ -20,8 +20,12 @@ def index(request):
 	return render(request, 'rango/index.html', context=context_dict)
 	
 def about(request):
-	context_dict = {'boldmessage': "This tutorial was put together by Maxine"}
-	return render(request, 'rango/about.html', context=context_dict)
+#	return HttpResponse("Rango says here is the about page. <a href='/rango/'>View index page</a>")
+#	prints out whether the method is a GET or a POST
+	print(request.method)
+#	prints out the user name, if noone is logged in it prints 'Anonymous User'
+	print(request.user)
+	return render(request, 'rango/about.html', {})
 	
 def show_category(request, category_name_slug):
 	context_dict = {}
@@ -34,6 +38,7 @@ def show_category(request, category_name_slug):
 		context_dict['pages'] = pages
 		
 		context_dict['category'] = category
+		
 	except Category.DoesNotExist:
 		context_dict['category'] = None
 		context_dict['pages'] = None
