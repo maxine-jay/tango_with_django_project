@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 class Category(models.Model):
 	name = models.CharField(max_length=128, unique=True)
@@ -26,3 +27,16 @@ class Page(models.Model):
 	
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.title
+
+class UserProfile(models.Model):
+	#This line is required. Links UserProfile to a User model instance
+	user = models.OneToOneField(User)
+
+	#additional attributes we wish to inclue
+	website = models.URLField(blank=True)
+	picture = models.ImageField(upload_to='profile_images', blank=True)
+
+	#override the __unicode__() method to return sth meaningful!
+
+	def __str__(self):
+		return self.self.user.username
