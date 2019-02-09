@@ -8,7 +8,8 @@ from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 def index(request):
     #construct a dictionary to pass to the template engine as its context
     # note the key bold message is the same as {{boldmessage }} in the template!
@@ -167,3 +168,12 @@ def user_login(request):
 	# No context variables to pass to the template system, hence the
 	# blank dictionary object...
 		return render(request, 'rango/login.html', {})
+
+@login_required
+def restricted(request):
+	return HttpResponse("Since you're logged in, you can see this text!")
+
+@login_required
+def user_logout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('index'))
